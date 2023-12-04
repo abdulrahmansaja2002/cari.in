@@ -69,8 +69,8 @@ const SearchPage = () => {
               </div>
               <Link href={`/article/?id=${i}`} className="hover:underline"> <p className="truncate text-2xl" >{result.title} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque porro similique ut fuga tempora deleniti odio voluptatibus quae aliquid eum non, incidunt dolorem assumenda deserunt, provident itaque, nemo facere exercitationem!</p></Link>
               <p className=" w-full line-clamp-3 text-slate-300">{result.text} Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi repellat ex recusandae autem eius dolore, obcaecati veritatis doloremque numquam eligendi distinctio laboriosam magnam voluptatum aut itaque nulla necessitatibus iste rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi repellat ex recusandae autem eius dolore, obcaecati veritatis doloremque numquam eligendi distinctio laboriosam magnam voluptatum aut itaque nulla necessitatibus iste rerum.</p>
-              {result.tags.map((tag) => (
-                <p className="text-slate-600 bg-slate-400 rounded-full inline-block px-2 m-1 text-xs">{tag}</p>
+              {result.tags.map((tag, i) => (
+                <p key={i} className="text-slate-600 bg-slate-400 rounded-full inline-block px-2 m-1 text-xs">{tag}</p>
               ))}
             </div>
           ))}
