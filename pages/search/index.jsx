@@ -8,6 +8,7 @@ const SearchPage = () => {
   const { query } = router.query;
   const [searchResults, setSearchResults] = useState([]);
   const [time, setTime] = useState(0.5); // [seconds]
+  const [input, setInput] = useState(""); // [seconds
   const fetchSearchResults = async (query) => {
     // fetch search results
     const start = Date.now();
@@ -19,6 +20,7 @@ const SearchPage = () => {
   };
   useEffect(() => {
     fetchSearchResults(query);
+    setInput(query);
   }, [query]);
 
   return (
@@ -44,7 +46,8 @@ const SearchPage = () => {
               placeholder="Search for anything..."
               type="text"
               name="query"
-              value={query}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
           </label>
         </form>
