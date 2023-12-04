@@ -138,7 +138,7 @@ const Home = () => {
             Search
           </button>
           <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20">
-            <path
+            <p;ath
               fill-rule="evenodd"
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               clip-rule="evenodd"
@@ -146,19 +146,19 @@ const Home = () => {
           </svg>
         </div> */}
         <div className="w-1/2">
-          <label class="relative block">
-            <span class="sr-only">Search</span>
-            <span class="absolute inset-y-0 left-2 flex items-center pl-2">
-              <svg class="h-6 w-6 fill-slate-300" viewBox="0 0 20 20">
+          <label className="relative block">
+            <span className="sr-only">Search</span>
+            <span className="absolute inset-y-0 left-2 flex items-center pl-2">
+              <svg className="h-6 w-6 fill-slate-300" viewBox="0 0 20 20">
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </span>
             <input
-              class="placeholder:italic placeholder:text-slate-400 block h-12 rounded-full w-full  bg-transparent border-2 py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+              className="placeholder:italic placeholder:text-slate-400 block h-12 rounded-full w-full  bg-transparent border-2 py-2 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
               placeholder="Search for anything..."
               type="text"
               name="query"
