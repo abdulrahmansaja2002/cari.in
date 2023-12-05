@@ -1,16 +1,26 @@
+import { getArticleById, article_type } from "@/api/article";
 import Gamming from "@/components/svg/Gamming";
+import Physics from "@/components/svg/Physics";
+import Programmer from "@/components/svg/Programmer";
+import Math from "@/components/svg/Math";
+import { toTitle } from "@/utils/article";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 const ArticlePage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchArticle = async (id) => {
-    const res = await fetch(`/api/article?id=${id}`);
+    // const res = await fetch(`/api/article?id=${id}`);
+    setLoading(true);
+    const res = await getArticleById(id);
     const article = await res.json();
     setArticle(article);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -19,41 +29,45 @@ const ArticlePage = () => {
     }
   }, [id]);
 
+  if (loading) {
+    return (
+      <Loader />
+    );
+  }
+
   return (
     <div className="dark:bg-zinc-900 min-h-screen">
       <div className="text-blue-500 text-4xl px-8 pt-3">
-        <Link href="/">
-          Cari.in
-        </Link>
+        <Link href="/">Cari.in</Link>
       </div>
       <div className="  w-screen flex flex-col items-center">
         <div className=" w-3/5">
           <div className="flex items-center px-1 py-5">
-            <Gamming width="50" />
+            {article?.type === article_type.GAMING ? (
+              <Gamming width="50" />
+            ) : article?.type === article_type.MATH ? (
+              <Math width="50" />
+            ) : article?.type === article_type.PHYSICS ? (
+              <Physics width="50" />
+            ) : article?.type === article_type.PROGRAMMERS ? (
+              <Programmer width="50" />
+            ) : null}
             <div className="flex flex-col justify-center items-start ps-2">
-              <span className="p-0 m-0 text-2xl">Gamming</span>
+              <span className="p-0 m-0 text-2xl">
+                {article?.type && toTitle(article?.type)}
+              </span>
             </div>
           </div>
           <div className="flex flex-col justify-center items-start">
             <h1 className="text-3xl font-bold pb-5">{article?.title}</h1>
-            <p className="text-xl">
-              {article?.text} Lorem ipsum dolor sit, amet consectetur
-              adipisicing elit. Officia rem nisi atque quis eius alias
-              dignissimos nulla facere fugit! Quae doloribus itaque ex, minima
-              pariatur adipisci ab ullam dolor ipsam! Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Praesentium quaerat eaque aut.
-              Dolores nostrum, repellat quaerat aut soluta beatae unde
-              cupiditate eveniet itaque tenetur provident, qui accusamus
-              veritatis exercitationem iste. Lorem ipsum dolor sit, amet
-              consectetur adipisicing elit. Sequi, ab rerum iste in adipisci
-              nostrum placeat commodi et porro, at fuga repellat vero, impedit
-              error eaque soluta qui? Culpa, tenetur.
-            </p>
+            <p className="text-xl">{article?.text}</p>
             <div className="py-3">
-              tags:
-              <span className="ps-2">tag1</span>
-              <span className="ps-2">tag2</span>
-              <span className="ps-2">tag3</span>
+              tags:{" "}
+              {article?.tags.map((tag, i) => (
+                <span key={i} className="ps-2">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
         </div>
