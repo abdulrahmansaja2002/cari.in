@@ -24,7 +24,7 @@ const SearchPage = () => {
     setLoading(true)
     // const res = await fetch(`/api/search?query=${query}`);
     const res = await search(query);
-    const results = await res.json();
+    const results = res.data;
     setSearchResults(results);
     setLoading(false)
   };

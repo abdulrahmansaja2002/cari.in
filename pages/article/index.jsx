@@ -18,7 +18,7 @@ const ArticlePage = () => {
     // const res = await fetch(`/api/article?id=${id}`);
     setLoading(true);
     const res = await getArticleById(id);
-    const article = await res.json();
+    const article = res.data;
     setArticle(article);
     setLoading(false);
   };

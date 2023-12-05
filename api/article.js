@@ -1,3 +1,4 @@
+import axios from "axios";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 // const API_BASE_URL = "http://localhost:5000"
 
@@ -9,6 +10,8 @@ export const article_type = {
     PROGRAMMERS: "programmers"
 }
 
-export const search = (query) => fetch(`${API_BASE_URL}/search?query=${query}`)
+axios.defaults.baseURL = API_BASE_URL;
 
-export const getArticleById = (id) => fetch(`${API_BASE_URL}/doc/${id}`)
+export const search = (query) => axios.get(`/search?query=${query}`)
+
+export const getArticleById = (id) => axios.get(`/doc/${id}`)
