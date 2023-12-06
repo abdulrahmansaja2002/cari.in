@@ -15,18 +15,19 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState({
     total: 0,
     docs: [],
-    time: 0
+    time: 0,
   }); // [seconds]
   const [input, setInput] = useState(""); // [seconds
   const [loading, setLoading] = useState(true);
+  const [numShow, setNumShow] = useState(10); // number of documents to show
   const fetchSearchResults = async (query) => {
     // fetch search results
-    setLoading(true)
+    setLoading(true);
     // const res = await fetch(`/api/search?query=${query}`);
     const res = await search(query);
     const results = res.data;
     setSearchResults(results);
-    setLoading(false)
+    setLoading(false);
   };
   useEffect(() => {
     if (query) {
@@ -36,9 +37,7 @@ const SearchPage = () => {
   }, [query]);
 
   if (loading) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   return (
@@ -73,13 +72,15 @@ const SearchPage = () => {
       <hr />
       <div className="ps-40 p-5">
         <small className="py-5">
-          About {searchResults.total} results ({searchResults.time} seconds)
+          About {searchResults.total} results ({searchResults.time.toFixed(2)} seconds)
         </small>
         <div>
           <p className="text-xl">Displays results for {query}</p>
         </div>
         <div className=" w-7/12">
-          {searchResults.docs.map((result, i) => (
+          {searchResults.docs
+            .slice(0, numShow)
+            .map((result, i) => (
             <div className="w-full py-2" key={i}>
               <div className="flex items-center">
                 {result.type === article_type.GAMING ? (
@@ -96,11 +97,12 @@ const SearchPage = () => {
                   <small className="p-0">{window.location.origin}</small>
                 </div>
               </div>
-              <Link href={`/article/?id=${result.id}`} className="hover:underline">
+              <Link
+                href={`/article/?id=${result.id}`}
+                className="hover:underline"
+              >
                 {" "}
-                <p className="truncate text-2xl">
-                  {result.title}
-                </p>
+                <p className="truncate text-2xl">{result.title}</p>
               </Link>
               <p className=" w-full line-clamp-3 text-slate-300">
                 {result.text}
@@ -115,6 +117,29 @@ const SearchPage = () => {
               ))}
             </div>
           ))}
+          {/* show more documents */}
+          <div className="py-5">
+            {numShow < searchResults.total ? (
+              <>
+                <hr />
+                <div className="flex justify-center items-center">
+                  <button
+                    className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-full -translate-y-5"
+                    onClick={() => setNumShow(numShow + 10)}
+                  >
+                    Show more
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <hr />
+                <div className="flex justify-center items-center">
+                  <p className="text-slate-300">No more results</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
